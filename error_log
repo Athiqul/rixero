@@ -1,0 +1,2 @@
+[17-Nov-2022 22:55:59 Asia/Kolkata] PHP Fatal error:  Cannot redeclare Tags::tagsList() in /home1/bigveadc/rixero.com/demo/application/controllers/admin/Tags.php on line 47
+[18-Nov-2022 11:22:07 Asia/Kolkata] PHP Fatal error:  Cannot redeclare Search::getourWork() in /home1/bigveadc/rixero.com/demo/application/controllers/Search.php on line 37
