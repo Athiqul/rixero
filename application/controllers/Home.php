@@ -16,6 +16,8 @@ class Home extends CI_Controller {
 
 	{
 
+		// print_r(SITEURL);
+        //  die();  
 		$data = array();
 
 		$data['page_title'] = 'Home';

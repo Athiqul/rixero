@@ -52,7 +52,7 @@
         <div class="col-9">
             <ul class="navigationArea">
              <li><a href="<?php echo site_url();?>">Home</a></li>
-                <li><a href="<?php echo site_url('work'); ?>">Our Work</a></li>
+                <li><a href="<?php echo site_url('index.php/work'); ?>">Our Work</a></li>
                 <li><a href="<?php echo FRONTEND_OUR_WORK_URL; ?>">Our Services</a></li>
                
                 <li><a href="<?php echo FRONTEND_CONTACT_URL; ?>">Contact Us</a></li>

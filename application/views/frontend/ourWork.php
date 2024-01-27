@@ -53,10 +53,10 @@
                                         ?>
                                     <div class="col-md-4 col-12">
                                         <div class="card-box">
-                                          <a href="<?php echo base_url('form/index/?banner_id=') ?><?php echo $value['id'];?>">
+                                          <a href="<?php echo base_url('index.php/form/index/?banner_id=') ?><?php echo $value['id'];?>">
                                             <img src="<?php echo ADMIN_ICON_DISPLAY_PATH_NAME.$value['icon'];?>" alt=""></a>
-                                             <a href="<?php echo base_url('form/index/?banner_id=') ?><?php echo $value['id'];?>"><h4 style="text-align: center;color: black;"><?php echo isset($value['page_type'])?$value['page_type']:'';?></h4></a>
-                                            <a href="<?php echo base_url('form/index/?banner_id=') ?><?php echo $value['id'];?>">
+                                             <a href="<?php echo base_url('index.php/form/index/?banner_id=') ?><?php echo $value['id'];?>"><h4 style="text-align: center;color: black;"><?php echo isset($value['page_type'])?$value['page_type']:'';?></h4></a>
+                                            <a href="<?php echo base_url('index.php/form/index/?banner_id=') ?><?php echo $value['id'];?>">
                                                 →
                                             </a>
                                         </div>

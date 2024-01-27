@@ -6,7 +6,7 @@
                 <img src="<?php echo ASSET_WEB_PATH;?>img/person_working.png" alt="" class="img-fluid d-none d-md-block">
             </div>
             <div class="col-md-5 col-12 position-relative overflow-hidden">
-                 <form action="<?php echo site_url('login/checkuserlogin'); ?>" method="post">
+                 <form action="<?php echo site_url('index.php/login/checkuserlogin'); ?>" method="post">
 
                     <div class="loginForm login" >
                         <div>
