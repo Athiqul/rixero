@@ -95,6 +95,7 @@ class Form extends CI_Controller {
 	public function saveData()
 	{
 		//print_r($_POST); die();
+      
 		$data=array();
 		$data['t_name']=isset($_POST['companyName'])?$_POST['companyName']:'';
 		$regAr['first_name']=isset($_POST['name'])?$_POST['name']:'';
@@ -254,13 +255,20 @@ class Form extends CI_Controller {
 
                   $this->db->select('email');
                  $this->db->where('user_type','DESIGNER');
-                 $emailAr=$this->db->get('tbl_mst_users')->result_array();
+            //      $emailAr=$this->db->get('tbl_mst_users')->result_array();
 
-            foreach ($emailAr as $key => $emailAr) {
-                       $email=isset($emailAr['email'])?$emailAr['email']:'';
-                       $this->common_model->sendmail($email,$subject,$body);
+            // foreach ($emailAr as $key => $emailAr) {
+            //            $email=isset($emailAr['email'])?$emailAr['email']:'';
+            //            $this->common_model->sendmail($email,$subject,$body);
                     
+            //      }
+                
+
+                 if(isset($_POST['phonepe']))
+                 {
+                    redirect(base_url('index.php/form/phonepe/'.$task_id));
                  }
+                
 		        redirect(base_url('form/payment').'/'.$task_id);
 
 
@@ -518,7 +526,7 @@ class Form extends CI_Controller {
                         $mail->Username = 'info@rixero.com';
                         $mail->Password = 'Masnoonkherani@1707';
                         $mail->IsHTML();
-                        $mail->wordwrap = true;
+                       // $mail->wordwrap = true;
                         
                         $mail->setFrom('info@rixero.com', 'Rixero');
                         $mail->addReplyTo('info@rixero.com', 'Rixero');
@@ -537,6 +545,11 @@ class Form extends CI_Controller {
                         }
     }
 
+   //Payment With Phone pe
 
+   public function phonepe($task_id)
+   {
+      echo $task_id;
+   }
 
 }

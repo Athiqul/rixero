@@ -194,7 +194,7 @@
                             <button type="button" id="next1" style="display: none;">Next</button>
                         </div>
                     </div></form>
-                    <form action="<?php echo base_url('form/saveData');?>" method="post" class="container addMargin" enctype="multipart/form-data">
+                    <form action="<?php echo base_url('index.php/form/saveData');?>" method="post" class="container addMargin" enctype="multipart/form-data">
                     <div class="boxDetaile boxDetaile2 <?php if($user_id>0){ echo 'activeSlide unset';  }?>" >
                         <div class="leftSide">
                             <button id="prev2" type="button" style="display: none;">Previous</button>
@@ -1135,6 +1135,7 @@
                     <div class="paybutton">
                         <button><img src="<?php echo ASSET_WEB_PATH;?>img/rixicoin.png" width="30px" alt=""> Pay With Rixi Coin</button>
                         <button type="submit"><img src="<?php echo ASSET_WEB_PATH;?>img/Razorpay.png" class="w-50" alt="razerpay"></button>
+                        <button type="submit" name="phonepe" value="phonepe"><img src="<?php echo ASSET_WEB_PATH;?>img/phonepe.png" class="w-50" alt="PhonePe"></button>
                     </div>
                 </div>
             </div>
