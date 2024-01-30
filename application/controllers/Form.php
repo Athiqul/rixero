@@ -269,7 +269,7 @@ class Form extends CI_Controller {
                     redirect(base_url('index.php/form/phonepe/'.$task_id));
                  }
                 
-		        redirect(base_url('form/payment').'/'.$task_id);
+		        redirect(base_url('index.php/form/payment').'/'.$task_id);
 
 
 		    }
@@ -549,7 +549,108 @@ class Form extends CI_Controller {
 
    public function phonepe($task_id)
    {
-      echo $task_id;
+
+    //Data 
+    $data['title'] = 'Checkout payment ';  
+    $this->db->select();
+    $this->db->where('task_id',$task_id);
+    $res=$this->db->get('tb_task')->row_array();
+    $user_id=isset($res['customer_id'])?$res['customer_id']:'';
+    $finalAmount=isset($res['finalAmount'])?$res['finalAmount']:0;
+    $data['user_details'] = $user_details = $this->user_model->getUserDetails($user_id);
+//    echo "<pre>";print_r($user_details); die();
+    $data['customer_id']=$user_id;
+    $data['amount']=$finalAmount;
+    $data['return_url'] = site_url().'form/callback';
+    $data['surl'] = site_url().'razorpay/success';;
+    $data['furl'] = site_url().'razorpay/failed';;
+    $data['currency_code'] = 'INR';
+        //Initialize information
+        // Replace these with your actual PhonePe API credentials
+
+        $merchantId = 'ALLSTARSONLINE';
+        $apiKey = "37084998-cfe4-4e07-b8fa-9e2d38d75e3a"; // sandbox or test APIKEY
+//         $merchantId = 'PGTESTPAYUAT'; // sandbox or test merchantId
+// $apiKey="099eb0cd-02cf-4e2a-8aca-3e6c6aff0399";
+        $redirectUrl = base_url('index.php/success/index');
+
+        // Set transaction details
+        $order_id = uniqid();
+        $name = $user_details['first_name'].' '.$user_details['last_name'];
+        $email = $user_details['email'];
+
+        $mobile = $user_details['phone'];
+        $amount = $finalAmount; // amount in INR
+        $description = 'Payment for Product/Service';
+        $merchantTransactionId=$order_id.$user_id;
+
+
+        $paymentData = array(
+            'merchantId' => $merchantId,
+            'merchantTransactionId' => $merchantTransactionId, // test transactionID
+            "merchantUserId" => $user_id,
+            'amount' => $amount * 100,
+            'redirectUrl' => $redirectUrl,
+            'redirectMode' => "POST",
+            'callbackUrl' => $redirectUrl,
+            "merchantOrderId" => $order_id,
+            "mobileNumber" => $mobile,
+            "message" => $description,
+            "email" => $email,
+            "shortName" => $name,
+            "paymentInstrument" => array(
+                "type" => "PAY_PAGE",
+            )
+        );
+
+
+        $jsonencode = json_encode($paymentData);
+        $payloadMain = base64_encode($jsonencode);
+        $salt_index = 1; //key index 1
+        $payload = $payloadMain . "/pg/v1/pay" . $apiKey;
+        $sha256 = hash("sha256", $payload);
+        $final_x_header = $sha256 . '###' . $salt_index;
+        $request = json_encode(array('request' => $payloadMain));
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://api.phonepe.com/apis/hermes/pg/v1/pay",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $request,
+            CURLOPT_HTTPHEADER => [
+                "Content-Type: application/json",
+                "X-VERIFY: " . $final_x_header,
+                "accept: application/json"
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            $res = json_decode($response);
+            print_r($res);
+            die();
+
+            if (isset($res->success) && $res->success == '1') {
+                $paymentCode = $res->code;
+                $paymentMsg = $res->message;
+                $payUrl = $res->data->instrumentResponse->redirectInfo->url;
+
+                header('Location:' . $payUrl);
+            }
+        }
+
+    //  echo $task_id;
    }
 
 }

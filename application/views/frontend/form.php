@@ -1260,7 +1260,7 @@ $('.login').css("margin-top", "-23%");
         var parameters="type_id="+type_id;
         $.ajax({
             type: "POST",
-            url: "<?php echo base_url('form/getprice'); ?>",
+            url: "<?php echo base_url('index.php/form/getprice'); ?>",
             data: {type_id:type_id,printable_type:printable_type,pages_no:pages_no},
             cache: false,
             success:function(responseData)
@@ -1354,7 +1354,7 @@ $('.login').css("margin-top", "-23%");
         var parameters="type_id="+type_id;
         $.ajax({
             type: "POST",
-            url: "<?php echo base_url('form/getprice'); ?>",
+            url: "<?php echo base_url('index.php/form/getprice'); ?>",
             data: {type_id:type_id,printable_type:printable_type,pages_no:pages_no},
             cache: false,
             success:function(responseData)
